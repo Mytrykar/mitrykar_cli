@@ -1,5 +1,15 @@
-import 'package:mitrykar_cli/mitrykar_cli.dart' as mitrykar_cli;
+import 'dart:io';
 
-void main(List<String> arguments) {
-  print('Hello world: ${mitrykar_cli.calculate()}!');
+import 'package:mitrykar_cli/mitrykar_cli.dart';
+
+Future<void> main(List<String> args) async {
+  // await _flushThenExit(await Cli().run([
+  //   "git", "branch", "dada", "-d",
+  // ]));
+  await _flushThenExit(await Cli().run(args));
+}
+
+Future<void> _flushThenExit(int status) {
+  return Future.wait<void>([stdout.close(), stderr.close()])
+      .then<void>((_) => exit(status));
 }
