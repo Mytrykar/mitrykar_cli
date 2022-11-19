@@ -21,12 +21,9 @@ class CreateApp extends Command<int> {
     final projectName = _projectName;
     final dir = _dir;
     final path = join(Directory.current.path, dir);
-    final target = Directory(path);
-    if (!target.existsSync()) target.createSync(recursive: true);
+
     await FlutterCli.create(logger,
         projectType: ProjectType.app, projectName: projectName, path: path);
-    logger
-        .success('''Architecture template successfully created MVVM + bloc''');
 
     return ExitCode.success.code;
   }

@@ -3,42 +3,48 @@ part of "../git.dart";
 class Init extends Command<int> {
   final Logger logger;
 
-  Init(this.logger);
+  Init(this.logger) {
+    argParser.addFlag(
+      'remote',
+      abbr: 'r',
+      help:
+          'A link to your git repository. example :https://github.com/you_profile/you_repository.git',
+      defaultsTo: null,
+    );
+  }
   @override
-  // TODO: implement description
   String get description => "Initialization GIT with you project.";
 
   @override
-  // TODO: implement name
   String get name => "init";
 
-  bool get _git {
-    if (Directory(Directory.current.path).existsSync()) {
-      final dir = dirname(Directory.current.path);
-      final config = File("$dir/.git/config");
-      final remote = config
-          .readAsLinesSync()
-          .firstWhere((element) => element.contains("url"));
+  @override
+  String get invocation =>
+      "${c.description} git $name or ${c.description} git $name https://github.com/you_profile/you_repository.git -r";
 
-      return argResults?['git'] ??
-          logger.confirm(
-            """In ${Directory.current.path} already initiated .git, 
-            $remote
-            are you sure you want to initiate it here?""",
-            defaultValue: false,
-          );
-    } else {
-      return argResults?['git'] ??
-          logger.confirm(
-            'Initialize repository Git?',
-            defaultValue: false,
-          );
+  @override
+  Future<int> run() async {
+    if (argResults!.arguments.isNotEmpty && !argResults!["remote"]) {
+      logger.warn("You are using it incorrectly initialize git");
+      return ExitCode.cantCreate.code;
     }
+    var remote = _remote;
+    while (remote == "err") {
+      logger.warn("You must specify a repository");
+      remote = _remote;
+    }
+
+    await GitCli.runBasicGitInit(logger,
+        path: Directory.current.path, remoteRepo: remote);
+
+    return ExitCode.success.code;
   }
 
-  String get _remote =>
-      argResults?['remote'] ??
-      logger.prompt(
-        """A link to your git repository. example :https://github.com/you_profile/you_repository.git""",
-      );
+  String get _remote {
+    return argResults?.rest.first ??
+        logger.prompt(
+          'You git remote repo',
+          defaultValue: "err",
+        );
+  }
 }

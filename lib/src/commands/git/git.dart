@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:args/command_runner.dart';
 import 'package:mitrykar_cli/src/cli/cli.dart';
+
+import 'package:mitrykar_cli/src/command_runner.dart' as c;
 import 'package:path/path.dart';
 import 'package:mason_logger/mason_logger.dart';
 
@@ -17,6 +20,8 @@ class GitCommand extends Command<int> {
     addSubcommand(Branch(logger));
     addSubcommand(Pull(logger));
     addSubcommand(Push(logger));
+    argParser.addFlag("current",
+        abbr: "c", help: "Shows the current remote repository.");
   }
 
   @override
@@ -25,14 +30,18 @@ class GitCommand extends Command<int> {
   @override
   String get name => "git";
 
-  // @override
-  // Future<int> run() async {
-  //   final git = _git;
-  //   if(!git) {
-  //     logger.info();
-  //     return }
-  //   final remote = _remote;
+  @override
+  Future<int> run() async {
+    if (argResults!["current"]) logger.write(currentRepo);
+    return ExitCode.success.code;
+  }
 
-  // }
-
+  String get currentRepo {
+    final dir = dirname(Directory.current.path);
+    if (!Directory("$dir/.git").existsSync()) return "Git not initializated";
+    final config = File("$dir/.git/config");
+    return config
+        .readAsLinesSync()
+        .firstWhere((element) => element.contains("url"));
+  }
 }

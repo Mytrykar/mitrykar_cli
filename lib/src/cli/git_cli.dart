@@ -1,6 +1,26 @@
 part of 'cli.dart';
 
 class GitCli {
+  static Future<void> push(Logger logger, String commit) async {
+    await Cli.run("git", ["add", "."]);
+    await Cli.run('git', ['commit', "-m", commit]);
+    await Cli.run("git", ["push"]);
+    logger.success("All done");
+  }
+
+  static String currentBranch(List<String> branches) {
+    return branches.firstWhere((element) => element.contains("->"));
+  }
+
+  static Future<void> pull(Logger logger) async {
+    final result = await Cli.run("git", ["fetch"]);
+    if (result.stdout == "") {
+      logger.write("There is nothing to download!!!");
+    } else {
+      await Cli.run("git", ["pull"]);
+    }
+  }
+
   static Future<void> delete(List<String> branches) async {
     for (var element in branches) {
       await Cli.run("git", ["branch", element, "-d"]);
@@ -56,6 +76,7 @@ class GitCli {
           workingDirectory: path);
       gitProgress.complete('Initialized git repository....');
     } else {
+      logger.confirm("Git nol installed! Install?");
       return;
     }
   }

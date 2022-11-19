@@ -12,8 +12,10 @@ class FlutterCli {
     assert(projectType == ProjectType.app);
     logger.progress("Create Flutter App");
     try {
-      await Cli.run('flutter', ['create', projectName], workingDirectory: path);
-      logger.success("Flutter App created!");
+      await Cli.run('flutter', ['create', path, "--project-name", projectName],
+          workingDirectory: path);
+      logger.progress(
+          '''Architecture template successfully created MVVM + bloc''');
     } catch (e) {
       logger.err("An error occurred while creating Flutter App");
     }

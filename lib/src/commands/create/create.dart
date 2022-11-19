@@ -20,20 +20,6 @@ class CreateCommand extends Command<int> {
     addSubcommand(CreateApp(logger));
     addSubcommand(CreateDartServer(logger));
     addSubcommand(CreateStaticWebSite(logger));
-    argParser
-      ..addFlag(
-        'git-init',
-        abbr: 'g',
-        help: 'Initialize the Git repository.',
-        defaultsTo: null,
-      )
-      ..addOption(
-        'remote',
-        abbr: 'r',
-        help:
-            'A link to your git repository. example :https://github.com/you_profile/you_repository.git',
-        defaultsTo: null,
-      );
   }
   @override
   String get description => "Create project";
@@ -43,6 +29,6 @@ class CreateCommand extends Command<int> {
   @override
   String get invocation => '$executableName $name <project>';
 
-  // @override
-  // Future<int> run() async {}
+  @override
+  Future<int> run() async => ExitCode.success.code;
 }

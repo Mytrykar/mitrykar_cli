@@ -38,23 +38,20 @@ class Branch extends Command<int> {
   Future<bool> _checkInputConsole() async {
     if (argResults!.rest.isEmpty) return false;
     if (argResults!["delete"]) {
-      final result = await Cli.run("git",
+      await Cli.run("git",
           ["branch", argResults!.rest.first, argResults!.arguments.last]);
-      info(result.stdout);
     } else {
-      final result = await Cli.run("git", ["checkout", argResults!.rest.first]);
-      info(result.stdout);
+      final list = await GitCli.branches;
+      await GitCli.checkout(
+          argResults!.rest.first, list.contains(argResults!.rest.first));
     }
     return true;
   }
-
-  void info(String message) => logger.info(message);
 
   List<String> _delete(List<String> branches) {
     return logger.chooseAny<String>(
       "Select the branches you want to delete:",
       choices: branches,
-      // defaultValues: [branches.firstWhere((element) => element.contains("->"))],
     );
   }
 
@@ -63,9 +60,7 @@ class Branch extends Command<int> {
     return logger.chooseOne<String>(
       "Choose branch:",
       choices: branches,
-      defaultValue: branches.firstWhere(
-        (element) => element.contains("->"),
-      ),
+      defaultValue: GitCli.currentBranch(branches),
     );
   }
 }

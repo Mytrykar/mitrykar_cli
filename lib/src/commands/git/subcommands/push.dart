@@ -5,10 +5,30 @@ class Push extends Command<int> {
 
   Push(this.logger);
   @override
-  // TODO: implement description
   String get description => "Push all with you branch";
 
   @override
-  // TODO: implement name
   String get name => "push";
+
+  @override
+  Future<int> run() async {
+    final commit = _commit ?? Random().nextInt(100000).toString();
+    final current = GitCli.currentBranch(await GitCli.branches);
+    logger.info("Current branch: $current");
+    logger.info("Commit: $commit");
+    final remote =
+        await Cli.run("git", ["config", "--get", "remote.origin.url"]);
+    logger.info("Remote: ${remote.stdout}");
+
+    if (moveNext) {
+      await GitCli.push(logger, commit);
+    }
+
+    return ExitCode.success.code;
+  }
+
+  bool get moveNext =>
+      logger.confirm("Push all to remote Repo", defaultValue: false);
+
+  String? get _commit => logger.prompt("Write you commit:", defaultValue: null);
 }

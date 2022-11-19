@@ -5,6 +5,7 @@ import 'package:mitrykar_cli/src/utils.dart';
 import 'package:mitrykar_cli/src/version.dart';
 import 'package:pub_updater/pub_updater.dart';
 
+import 'commands/create/create.dart';
 import 'commands/git/git.dart';
 
 const executableName = 'mitrykar_cli';
@@ -36,7 +37,7 @@ class Cli extends CommandRunner<int> {
         help: 'Логування з шумом, включаючи всі виконані команди оболонки.',
       );
     addCommand(GitCommand(_logger));
-    // addCommand(CreateCommand(logger: _logger));
+    addCommand(CreateCommand(logger: _logger));
     // addCommand(UpdateCommand(logger: _logger, pubUpdater: _pubUpdater));
     // addCommand(ProjectCommand()..addSubcommand(ProjectUpgradeSubcommand()));
   }

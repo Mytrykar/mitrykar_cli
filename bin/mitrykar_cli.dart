@@ -4,7 +4,9 @@ import 'package:mitrykar_cli/mitrykar_cli.dart';
 
 Future<void> main(List<String> args) async {
   // await _flushThenExit(await Cli().run([
-  //   "git", "branch", "dada", "-d",
+  //   "git",
+  //   "branch",
+  //   "dada",
   // ]));
   await _flushThenExit(await Cli().run(args));
 }
