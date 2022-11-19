@@ -92,28 +92,6 @@ class Cli {
       throw ProcessException(process, args, message, pr.exitCode);
     }
   }
-
-  static Stream<ProcessResult> runWhereConsole(String cmd, List<String> args,
-      {bool throwOnError = true,
-      String? workingDirectory,
-      required List<String> values}) async* {
-    for (var element in values) {
-      logger.detail('Running $cmd $args $element');
-      final result = await Process.run(
-        cmd,
-        args,
-        workingDirectory: workingDirectory,
-        runInShell: true,
-      );
-
-      logger.detail('Output:\n${result.stdout}');
-
-      if (throwOnError) {
-        _throwIfProcessFailed(result, cmd, args);
-      }
-      yield result;
-    }
-  }
 }
 
 const _ignoredDirectories = {
