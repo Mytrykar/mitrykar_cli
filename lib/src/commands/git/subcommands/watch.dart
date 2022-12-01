@@ -36,7 +36,7 @@ class Watch extends Command<int> {
     bool run = true;
     while (run) {
       await GitCli.watch(repo, logger);
-      await Future.delayed(Duration(seconds: 20));
+      await Future.delayed(Duration(minutes: 5));
     }
     // return ExitCode.success.code;
   }
