@@ -4,10 +4,10 @@ import 'package:project_cli/project_cli.dart';
 
 Future<void> main(List<String> args) async {
   await _flushThenExit(await Cli().run([
-    "html",
-    "clean",
+    "git",
+    "watch",
   ]));
-  await _flushThenExit(await Cli().run(args));
+  // await _flushThenExit(await Cli().run(args));
 }
 
 Future<void> _flushThenExit(int status) {

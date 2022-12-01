@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
@@ -7,11 +8,13 @@ import 'package:project_cli/src/cli/cli.dart';
 import 'package:project_cli/src/command_runner.dart' as c;
 import 'package:path/path.dart';
 import 'package:mason_logger/mason_logger.dart';
+import 'package:rxdart/streams.dart';
 
 part 'subcommands/init.dart';
 part 'subcommands/pull.dart';
 part 'subcommands/push.dart';
 part 'subcommands/branch.dart';
+part 'subcommands/watch.dart';
 
 class GitCommand extends Command<int> {
   final Logger logger;
@@ -20,6 +23,7 @@ class GitCommand extends Command<int> {
     addSubcommand(Branch(logger));
     addSubcommand(Pull(logger));
     addSubcommand(Push(logger));
+    addSubcommand(Watch(logger));
     argParser.addFlag("current",
         abbr: "c", help: "Shows the current remote repository.");
   }

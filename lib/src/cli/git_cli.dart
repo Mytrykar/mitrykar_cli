@@ -1,6 +1,16 @@
 part of 'cli.dart';
 
 class GitCli {
+  static Future<void> watch(List<String> repo, Logger logger) async {
+    for (var element in repo) {
+      final response =
+          await Cli.run("git", ["pull"], workingDirectory: element);
+      if (response.stdout != null) {
+        logger.info(response.stdout as String);
+      }
+    }
+  }
+
   static Future<void> push(Logger logger, String commit) async {
     await Cli.run("git", ["add", "."]);
     await Cli.run('git', ['commit', "-m", commit]);
