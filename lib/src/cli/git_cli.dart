@@ -6,7 +6,7 @@ class GitCli {
     for (var element in repo) {
       final response =
           await Cli.run("git", ["pull"], workingDirectory: element);
-      if (response.stdout.toString() != "Already up to date.") {
+      if (response.stdout.toString().contains("Already")) {
         logger.info(element.split("/").last);
         logger.info(response.stdout as String);
       }
