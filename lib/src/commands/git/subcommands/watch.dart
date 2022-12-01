@@ -27,9 +27,7 @@ class Watch extends Command<int> {
       final repo = _moreRepo;
       watchList = repo;
     }
-    if (watchList.isNotEmpty) {
-      logger.progress("Watch remote");
-    }
+
     return await runTimer(watchList);
   }
 
