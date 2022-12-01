@@ -3,14 +3,16 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:mason_logger/mason_logger.dart';
-import 'package:mitrykar_cli/src/commands/create/create.dart';
+import 'package:project_cli/src/commands/create/create.dart';
 import 'package:path/path.dart' as p;
 import 'package:pubspec_parse/pubspec_parse.dart';
-import 'package:mitrykar_cli/src/utils.dart';
+import 'package:project_cli/src/utils.dart';
+import 'package:pubspec_yaml/pubspec_yaml.dart';
 
 part 'flutter_cli.dart';
 part 'git_cli.dart';
 part 'dart_cli.dart';
+part 'intl_cli.dart';
 
 class Cli {
   static final Logger logger = Logger();
@@ -90,6 +92,34 @@ class Cli {
       }
 
       throw ProcessException(process, args, message, pr.exitCode);
+    }
+  }
+}
+
+class ConfigCli extends _PubspecYaml$ConfigCli {
+  final Directory dirProject;
+
+  ConfigCli(this.dirProject) : super(Directory("$dirProject/.cli"));
+}
+
+class _PubspecYaml$ConfigCli {
+  PubspecYaml? _pubspecYaml;
+  final Directory _dirConfig;
+
+  _PubspecYaml$ConfigCli(this._dirConfig);
+
+  Future<void> create({required ProjectType type}) async {
+    final file = File("$_dirConfig/config.yaml");
+    try {
+      await file.create();
+      file
+          .openWrite()
+          .writeln("""#this is the CLI configuration for your project
+project-type: $type
+""");
+      Logger().success("Create CLI config");
+    } catch (e) {
+      Logger(level: Level.error).write(e.toString());
     }
   }
 }

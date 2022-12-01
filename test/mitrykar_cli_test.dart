@@ -1,4 +1,4 @@
-// import 'package:mitrykar_cli/mitrykar_cli.dart';
+// import 'package:project_cli/project_cli.dart';
 // import 'package:test/test.dart';
 
 // void main() {

@@ -1,13 +1,12 @@
 import 'dart:io';
 
-import 'package:mitrykar_cli/mitrykar_cli.dart';
+import 'package:project_cli/project_cli.dart';
 
 Future<void> main(List<String> args) async {
-  // await _flushThenExit(await Cli().run([
-  //   "git",
-  //   "branch",
-  //   "dada",
-  // ]));
+  await _flushThenExit(await Cli().run([
+    "html",
+    "clean",
+  ]));
   await _flushThenExit(await Cli().run(args));
 }
 

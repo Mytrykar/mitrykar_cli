@@ -1,21 +1,21 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
-import 'package:mitrykar_cli/src/utils.dart';
-import 'package:mitrykar_cli/src/version.dart';
+import 'package:project_cli/src/utils.dart';
+import 'package:project_cli/src/version.dart';
 import 'package:pub_updater/pub_updater.dart';
 
 import 'commands/create/create.dart';
 import 'commands/git/git.dart';
 
-const executableName = 'mitrykar_cli';
-const packageName = 'mitrykar_cli';
+const executableName = 'project_cli';
+const packageName = 'project_cli';
 const description =
-    """Створи автоматизований проект за допомогою Mitrykar Command Line Interface.
+    """Створи автоматизований проект за допомогою project Command Line Interface.
       Команду add використовуйте в директорії де ви виконали create_app!!!
       cd <directory add>
-      mitrykar_cli add list
-      mitrykar_cli add stream_view
+      project_cli add list
+      project_cli add stream_view
     """;
 
 class Cli extends CommandRunner<int> {
@@ -113,7 +113,7 @@ class Cli extends CommandRunner<int> {
           ..info(
             '''
 ${lightYellow.wrap('Update available!')} ${lightCyan.wrap(packageVersion)} \u2192 ${lightCyan.wrap(latestVersion)}
-Run ${lightCyan.wrap('mitrykar_cli update')} to update''',
+Run ${lightCyan.wrap('project_cli update')} to update''',
           );
       }
     } catch (_) {}

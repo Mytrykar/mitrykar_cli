@@ -1,7 +1,7 @@
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
-import 'package:mitrykar_cli/mitrykar_cli.dart';
-import 'package:mitrykar_cli/src/version.dart';
+import 'package:project_cli/project_cli.dart';
+import 'package:project_cli/src/version.dart';
 import 'package:pub_updater/pub_updater.dart';
 
 class UpdateCommand extends Command<int> {

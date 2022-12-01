@@ -2,9 +2,9 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:args/command_runner.dart';
-import 'package:mitrykar_cli/src/cli/cli.dart';
+import 'package:project_cli/src/cli/cli.dart';
 
-import 'package:mitrykar_cli/src/command_runner.dart' as c;
+import 'package:project_cli/src/command_runner.dart' as c;
 import 'package:path/path.dart';
 import 'package:mason_logger/mason_logger.dart';
 

@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
-import 'package:mitrykar_cli/mitrykar_cli.dart';
-import 'package:mitrykar_cli/src/cli/cli.dart';
+import 'package:project_cli/project_cli.dart';
+import 'package:project_cli/src/cli/cli.dart';
+import 'package:project_cli/src/utils.dart';
 import 'package:path/path.dart';
 
 part 'subcommands/app.dart';
@@ -11,8 +12,6 @@ part 'subcommands/server.dart';
 part 'subcommands/website.dart';
 
 const create = "create";
-
-enum ProjectType { app, server, website }
 
 class CreateCommand extends Command<int> {
   final Logger logger;

@@ -5,8 +5,8 @@ class Branch extends Command<int> {
 
   Branch(this.logger) {
     argParser.addFlag("delete",
-        abbr: "d", help: """Delete one branch.-> mitrykar_cli git branch -d foo
-            Delete any branch in list.-> mitrykar_cli git branch -d""");
+        abbr: "d", help: """Delete one branch.-> project_cli git branch -d foo
+            Delete any branch in list.-> project_cli git branch -d""");
   }
   @override
   String get description =>

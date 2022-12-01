@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "mitrykar_cli",
+            "name": "project_cli",
             "request": "launch",
             "type": "dart"
         }
