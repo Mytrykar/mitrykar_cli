@@ -3,6 +3,7 @@ part of 'cli.dart';
 class GitCli {
   static Future<void> watch(List<String> repo, Logger logger) async {
     for (var element in repo) {
+      logger.progress("Watch remote ${element.split("/").last}");
       final response =
           await Cli.run("git", ["pull"], workingDirectory: element);
       if (response.stdout != null) {
