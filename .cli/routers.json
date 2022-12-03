@@ -2,10 +2,14 @@
     "Home": "/",
     "Example":"/Example",
     "@Example":{
-        "Example2" : "/list",
-        "Example3" : "/list",
+        "Example2" : "/Example2",
+        "Example3" : "/Example3",
         "@Example3":{
-            "Example2" : "/list"
+            "Example2" : "/Example2"
+        },
+        "@Example2":{
+            "Example2" : "/Example4"
         }
+
     }
 }
