@@ -1,6 +1,5 @@
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
-part 'actions.dart';
 
 class AddCommand extends Command<int> {
   final Logger logger;
@@ -10,5 +9,5 @@ class AddCommand extends Command<int> {
   String get description => "Додайте до свого проекту шаблони розробника";
 
   @override
-  String get name => "add";
+  String get name => "mason";
 }
