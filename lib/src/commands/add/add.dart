@@ -9,5 +9,5 @@ class AddCommand extends Command<int> {
   String get description => "Додайте до свого проекту шаблони розробника";
 
   @override
-  String get name => "mason";
+  String get name => "add";
 }
