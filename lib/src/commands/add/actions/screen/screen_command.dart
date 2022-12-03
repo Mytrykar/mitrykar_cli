@@ -24,6 +24,7 @@ class Screen extends Command<int> {
 
     final screenName = _screenName;
     final pathRoute = _pathRoute(screenName);
+    return ExitCode.success.code;
   }
 
   String _pathRoute(String screenName) {

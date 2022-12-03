@@ -23,16 +23,32 @@ class Helper {
     return yaml.name;
   }
 
-  static Map<String, String> get allPatches {
-    final routers = File("$dirPath/.cli/router.json").readAsStringSync();
+  static Map<String, List<String>> get allPatches {
+    final routers = File("$dirPath/.cli/routers.json").readAsStringSync();
     final collection = JsonDecoder().convert(routers) as Map;
-    Map<String, String> allPatches = {};
-
-    for (var element in collection.entries) {
-      var screenName = element.key as String;
-      if (element.value is String) {}
+    Map<String, List<String>> allPatches = {};
+    void mappedJson(Map<String, dynamic> map, String parent) {
+      for (var element in map.entries) {
+        var screenName = element.key;
+        if (element.value is String) {
+          if (allPatches[screenName] == null) {
+            allPatches[screenName] = [element.value as String];
+          } else {
+            allPatches[screenName]?.add(element.value as String);
+          }
+        } else {
+          mappedJson(element.value as Map<String, dynamic>,
+              screenName.replaceFirst(RegExp(r"@"), ""));
+        }
+      }
     }
+
+    mappedJson(collection as Map<String, dynamic>, "");
 
     return allPatches;
   }
+}
+
+void main() {
+  Helper.allPatches;
 }
