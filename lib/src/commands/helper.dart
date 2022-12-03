@@ -41,18 +41,23 @@ class _Routers {
 
     List<String> allPatches = [];
 
-    _mappedJson(_routersMap!, "");
+    _mappedJson(
+      _routersMap!,
+      "",
+      (p0) => allPatches.add(p0),
+    );
 
     return allPatches;
   }
 
-  static _mappedJson(Map<String, dynamic> map, String parent) {
+  static _mappedJson(
+      Map<String, dynamic> map, String parent, void Function(String) add) {
     for (var element in map.entries) {
       if (element.value is String) {
-        allPatches.add(parent + element.value);
+        add.call(parent + element.value);
       } else {
         _mappedJson(element.value as Map<String, dynamic>,
-            parent + _searchPath(element.key));
+            parent + _searchPath(element.key), add.call);
       }
     }
   }
@@ -61,5 +66,5 @@ class _Routers {
 }
 
 void main() {
-  Helper.allPatches;
+  Helper.;
 }
