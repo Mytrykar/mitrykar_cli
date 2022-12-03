@@ -13,10 +13,10 @@ class Helper {
     return yaml.name;
   }
 
-  static List<String> get routes => _allPatches;
+  static List<String> get routes => _Routers._allPatches;
 }
 
-extension _CliYaml on Helper {
+class _CliYaml {
   static Future<bool> _checkProjectType(ProjectType projectType) async {
     if (!_CliDirectory.checkCreateInCli()) return false;
     final yaml = await File("$dirPath/.cli/cli.yaml").readAsLines();
@@ -24,13 +24,13 @@ extension _CliYaml on Helper {
   }
 }
 
-extension _CliDirectory on Helper {
+class _CliDirectory {
   static checkCreateInCli() => Directory("$dirPath/.cli").existsSync();
 
   static void createCliDir() => Directory("$dirPath/.cli").createSync();
 }
 
-extension _Routers on Helper {
+class _Routers {
   static Map<String, dynamic>? _routersMap;
 
   static void readFile() {
@@ -48,6 +48,7 @@ extension _Routers on Helper {
       "",
       (p0) => allPatches.add(p0),
     );
+    print(allPatches);
 
     return allPatches;
   }
@@ -58,13 +59,25 @@ extension _Routers on Helper {
       if (element.value is String) {
         add.call(parent + element.value);
       } else {
-        _mappedJson(element.value as Map<String, dynamic>,
-            parent + _searchPath(element.key), add.call);
+        final newParant =
+            parent + _searchPath(element.key.replaceFirst("@", ""), null);
+        print(newParant);
+        _mappedJson(element.value as Map<String, dynamic>, newParant, add);
       }
     }
   }
 
-  static _searchPath(String screenName) {}
+  static String _searchPath(String screenName, Map<String, dynamic>? map) {
+    for (var element in map?.entries ?? _routersMap!.entries) {
+      if (element.key == screenName) {
+        return element.value;
+      }
+      if (element.value is Map) {
+        return _searchPath(screenName, element.value);
+      }
+    }
+    return "";
+  }
 }
 
 void main() {

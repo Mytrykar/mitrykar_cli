@@ -19,9 +19,9 @@ include: package:lints/recommended.yaml
 #   rules:
 #     - camel_case_types
 
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+analyzer:
+  exclude:
+    - /home/mytrykar/Проекти/github/project_cli/lib/src/commands/add/actions/screen
 
 # For more information about the core and recommended set of lints, see
 # https://dart.dev/go/core-lints
