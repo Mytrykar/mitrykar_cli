@@ -6,29 +6,31 @@ import 'package:pubspec_yaml/pubspec_yaml.dart';
 
 String get dirPath => Directory.current.path;
 
-class Helper with _CliDirectory, _Routers, _CliYaml {
+class Helper {
   static String get projectName {
     PubspecYaml yaml =
         File("/$dirPath/pubspec.yaml").readAsStringSync().toPubspecYaml();
     return yaml.name;
   }
+
+  static List<String> get routes => _allPatches;
 }
 
-mixin _CliYaml {
-  static Future<bool> checkProjectType(ProjectType projectType) async {
+extension _CliYaml on Helper {
+  static Future<bool> _checkProjectType(ProjectType projectType) async {
     if (!_CliDirectory.checkCreateInCli()) return false;
     final yaml = await File("$dirPath/.cli/cli.yaml").readAsLines();
     return yaml.first.startsWith("project-type: $projectType");
   }
 }
 
-mixin _CliDirectory {
+extension _CliDirectory on Helper {
   static checkCreateInCli() => Directory("$dirPath/.cli").existsSync();
 
   static void createCliDir() => Directory("$dirPath/.cli").createSync();
 }
 
-class _Routers {
+extension _Routers on Helper {
   static Map<String, dynamic>? _routersMap;
 
   static void readFile() {
@@ -36,7 +38,7 @@ class _Routers {
     _routersMap = JsonDecoder().convert(routers) as Map<String, dynamic>;
   }
 
-  static List<String> get allPatches {
+  static List<String> get _allPatches {
     readFile();
 
     List<String> allPatches = [];
@@ -66,5 +68,5 @@ class _Routers {
 }
 
 void main() {
-  Helper.;
+  Helper.routes;
 }
