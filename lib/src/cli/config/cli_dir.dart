@@ -27,7 +27,19 @@ class ConfigDirectory {
       };
 
   Future<void> init(ProjectType projectType) async {
-    try {} catch (e) {
+    try {
+      switch (projectType) {
+        case ProjectType.app:
+          _initFlutterProjectConfig();
+          break;
+        case ProjectType.server:
+          _initServerProjectConfig();
+          break;
+        case ProjectType.website:
+          _initDartAppProjectConfig();
+          break;
+      }
+    } catch (e) {
       rethrow;
     }
   }
@@ -39,6 +51,14 @@ class ConfigDirectory {
     routers.add("/", "Root");
 
     await _create(ConfigFile.routers, routers.toJsonFile());
+  }
+
+  Future<void> _initDartAppProjectConfig() async {
+    //TODO налаштувати ініціалізацію DartApp
+  }
+
+  Future<void> _initServerProjectConfig() async {
+    //TODO налаштувати ініціалізацію server
   }
 
   Future<void> _create(ConfigFile configFile, String content) async {
