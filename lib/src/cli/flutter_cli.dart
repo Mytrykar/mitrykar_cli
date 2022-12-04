@@ -5,6 +5,14 @@ part of 'cli.dart';
 class PubspecNotFound implements Exception {}
 
 class FlutterCli {
+  static final PubspecYaml yaml =
+      File("${Directory.current.path}/pubspec.yaml").existsSync()
+          ? File("${Directory.current.path}/pubspec.yaml")
+              .readAsStringSync()
+              .toPubspecYaml()
+          : throw PubspecNotFound;
+  static String get projectName => yaml.name;
+
   static Future<void> pubAdd(String package, path) async {
     await Cli.run("flutter", ["pub", "add", package], workingDirectory: path);
     await Future.delayed(Duration(seconds: 1));
@@ -43,7 +51,7 @@ class FlutterCli {
   }
 
   /// Determine whether flutter is installed.
-  static Future<bool> installed() async {
+  static Future<bool> get installed async {
     try {
       await Cli.run('flutter', ['--version']);
       return true;
@@ -74,24 +82,5 @@ class FlutterCli {
       ['pub', 'run', 'build_runner', 'build', '--delete-conflicting-outputs'],
       workingDirectory: cwd,
     );
-  }
-
-  static bool isFlutterProject() {
-    final currentDirectory = Directory.current;
-    final pubspecFile =
-        File(p.join(currentDirectory.absolute.path, 'pubspec.yaml'));
-    return pubspecFile.existsSync();
-  }
-
-  static String packageName() {
-    final currentDirectory = Directory.current;
-    if (isFlutterProject()) {
-      final pubspecFile =
-          File(p.join(currentDirectory.absolute.path, 'pubspec.yaml'));
-      final yaml = Pubspec.parse(pubspecFile.readAsStringSync());
-      return yaml.name;
-    } else {
-      throw PubspecNotFound();
-    }
   }
 }
