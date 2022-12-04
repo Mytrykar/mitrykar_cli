@@ -12,5 +12,6 @@ class Router {
       routeName == other.routeName;
 
   @override
+  // ignore: unnecessary_overrides
   int get hashCode => super.hashCode;
 }
