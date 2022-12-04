@@ -32,11 +32,7 @@ class _CliHelper {
         "You have already set up internalization",
       );
     }
-    if (FlutterCli.isFlutterProject()) {
-      throw Exception("""You should be in the project directory.
-      cd app 
-      """);
-    }
+
     return true;
   }
 

@@ -1,15 +1,13 @@
 {
-    "Home": "/",
-    "Example":"/Example",
-    "@Example":{
-        "Example2" : "/Example2",
-        "Example3" : "/Example3",
-        "@Example3":{
-            "Example2" : "/Example2"
-        },
-        "@Example2":{
-            "Example2" : "/Example4"
-        }
-
-    }
+    "/":"Home",
+    "/blog/page: as int":"Blog",
+    "/blog/page: as int/content: as int":"Content",
+    "/userId: as String/": "User",
+    "/userId: as String/blog/page: as int":"Blog",
+    "/userId: as String/blog/page: as int/content: as int":"Content",
+    "/userId: as String/blog/page: as int/content: as int/title.html":"Content",
+    "/resume.html":"Resume",
+    "/contacts.html":"Contacts",
+    "/userId: as String/admin":"Admin",
+    "/userId: as String/admin/blog/page: as int":"Admin"
 }

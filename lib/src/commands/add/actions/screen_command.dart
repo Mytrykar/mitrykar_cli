@@ -21,10 +21,10 @@ class Screen extends Command<int> {
   String get name => "screen";
   @override
   Future<int> run() async {
-    if (!await Helper.isFlutterApp) {
-      logger.err(
-          "the project was not created using project_cli, create the project first");
-    }
+    // if (!await Helper.isFlutterApp) {
+    //   logger.err(
+    //       "the project was not created using project_cli, create the project first");
+    // }
 
     final screenName = _screenName;
     final pathRoute = _pathRoute(screenName);
@@ -46,10 +46,10 @@ Replase ROUTE?: example: /screen2/:params as String or /screen2:
         """, defaultValue: false);
     if (isNestedRoute) {
       final List<String> routes = [newPath];
-      for (var element in Helper.routes) {
-        if (element == "/") continue;
-        routes.add((element + newPath));
-      }
+      // for (var element in Helper.routes) {
+      //   if (element == "/") continue;
+      //   routes.add((element + newPath));
+      // }
       return logger.chooseAny("Specify parents:",
           choices: routes, defaultValues: [newPath]);
     }
