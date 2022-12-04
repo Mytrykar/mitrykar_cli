@@ -13,14 +13,16 @@ class Helper {
     return yaml.name;
   }
 
-  static List<String> get routes => _Routers._allPatches;
+  static List<String> get routes => _Routers.allPatches;
+  static Future<bool> get isFlutterApp =>
+      _CliYaml._checkProjectType(ProjectType.app);
 }
 
 class _CliYaml {
   static Future<bool> _checkProjectType(ProjectType projectType) async {
     if (!_CliDirectory.checkCreateInCli()) return false;
     final yaml = await File("$dirPath/.cli/cli.yaml").readAsLines();
-    return yaml.first.startsWith("project-type: $projectType");
+    return yaml.first.startsWith("project-type: ${projectType.name}");
   }
 }
 
@@ -38,7 +40,7 @@ class _Routers {
     _routersMap = JsonDecoder().convert(routers) as Map<String, dynamic>;
   }
 
-  static List<String> get _allPatches {
+  static List<String> get allPatches {
     readFile();
 
     List<String> allPatches = [];

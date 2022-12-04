@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  change_case:
+    dependency: "direct main"
+    description:
+      name: change_case
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   checked_yaml:
     dependency: transitive
     description:
