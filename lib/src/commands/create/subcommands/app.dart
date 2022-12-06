@@ -36,18 +36,30 @@ class CreateApp extends Command<int> {
     final dir = _dir;
     final platforms = _platforms;
     final path = join(Directory.current.path, dir);
+    if (!FlutterCli.isFlutterProject(path)) {
+      logger.progress("Create Flutter App");
+      await FlutterCli.create(logger,
+          projectType: ProjectType.app,
+          projectName: projectName,
+          path: path,
+          platforms: platforms.fold(
+              "", (previousValue, element) => "$previousValue,$element"));
+    }
+    if (!Cli.isProjectCreating(path)) {
+      logger.progress("!T! = Підготовка проекту");
+      if (Directory("$path/lib").listSync().length == 1) {
+        await File("$path/lib/main.dart").delete();
+      }
+      // TODO Підключити зчитування шаблону
+      final template = <FileSystemEntity, String>{};
+      await Cli.create(template);
 
-    await FlutterCli.create(logger,
-        projectType: ProjectType.app,
-        projectName: projectName,
-        path: path,
-        platforms: platforms.fold(
-            "", (previousValue, element) => "$previousValue,$element"));
-
-    final locale = _l10n;
-    await IntlCli(path, logger).init(locale);
-    await pubAddDed(path, platforms);
-    await pubAddDEVDed(path);
+      final locale = _l10n;
+      await IntlCli(path, logger).init(locale);
+      await pubAddDed(path, platforms);
+      await pubAddDEVDed(path);
+      logger.success("Add done.");
+    }
 
     return ExitCode.success.code;
   }

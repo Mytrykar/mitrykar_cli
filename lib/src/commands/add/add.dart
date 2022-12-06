@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
 

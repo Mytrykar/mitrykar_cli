@@ -1,5 +1,4 @@
 import 'package:mason_logger/mason_logger.dart';
-import 'package:project_cli/src/commands/create/create.dart';
 
 class Status {
   static late Progress progress;

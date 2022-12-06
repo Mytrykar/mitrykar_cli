@@ -1,11 +1,11 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:io';
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:mason_logger/mason_logger.dart';
-import 'package:project_cli/src/commands/create/create.dart';
 import 'package:path/path.dart' as p;
-import 'package:pubspec_parse/pubspec_parse.dart';
 import 'package:project_cli/src/utils.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
 
@@ -18,6 +18,32 @@ part 'intl_cli.dart';
 
 class Cli {
   static final Logger logger = Logger();
+
+  static bool isProjectCreating(String path) =>
+      ConfigDirectory(pathProject: path).configDir.existsSync();
+
+  //!T!= Створює файли послідовно, процес неможливо перервати.
+  static Future<int> create(Map<FileSystemEntity, String> genFiles) async {
+    for (var element in genFiles.entries) {
+      try {
+        if (element.key is File) {
+          final file = element.key as File;
+          final exist = await file.exists();
+          if (!exist) await file.create();
+          await file.writeAsString(element.value);
+        } else if (element.key is Directory) {
+          final dir = element.key as Directory;
+          final exist = await dir.exists();
+          if (!exist) await dir.create();
+          await dir.create();
+        }
+      } catch (e) {
+        logger.err("Error create ${element.key.path}");
+        rethrow;
+      }
+    }
+    return ExitCode.success.code;
+  }
 
   /// starts the command with the given [cmd] and [args].
   static Future<int> start(

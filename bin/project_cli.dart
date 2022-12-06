@@ -1,13 +1,14 @@
 import 'dart:io';
 
+import 'package:mason_logger/mason_logger.dart';
 import 'package:project_cli/project_cli.dart';
 
 Future<void> main(List<String> args) async {
-  await _flushThenExit(await Cli().run([
+  await _flushThenExit(await CliRunner().run([
     "git",
     "watch",
   ]));
-  // await _flushThenExit(await Cli().run(args));
+  await _flushThenExit(await Cli().run(args));
 }
 
 Future<void> _flushThenExit(int status) {

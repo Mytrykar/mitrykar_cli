@@ -1,5 +1,6 @@
 import 'dart:io';
 
+// ignore: depend_on_referenced_packages
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
 
@@ -21,6 +22,7 @@ class ProjectUpgradeSubcommand extends Command<int> {
 
   @override
   Future<int> run() async {
+    // ignore: unused_local_variable
     final path = Directory.current.path;
     final major = _major;
     // await Actions.upgradeProject(path, major);

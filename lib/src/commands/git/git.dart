@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
@@ -8,7 +10,6 @@ import 'package:project_cli/src/cli/cli.dart';
 import 'package:project_cli/src/command_runner.dart' as c;
 import 'package:path/path.dart';
 import 'package:mason_logger/mason_logger.dart';
-import 'package:rxdart/streams.dart';
 
 part 'subcommands/init.dart';
 part 'subcommands/pull.dart';

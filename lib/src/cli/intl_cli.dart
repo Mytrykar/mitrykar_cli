@@ -16,9 +16,9 @@ class IntlCli extends _CliHelper {
   }
 }
 
-void main() async {
-  _CliHelper(Directory.current.path, Logger())._updatePubspec();
-}
+// void main() async {
+//   _CliHelper(Directory.current.path, Logger())._updatePubspec();
+// }
 
 class _CliHelper {
   final String path;

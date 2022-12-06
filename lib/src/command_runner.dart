@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:mason_logger/mason_logger.dart';
@@ -18,8 +20,8 @@ const description =
       project_cli add stream_view
     """;
 
-class Cli extends CommandRunner<int> {
-  Cli({
+class CliRunner extends CommandRunner<int> {
+  CliRunner({
     Logger? logger,
     PubUpdater? pubUpdater,
   })  : _logger = logger ?? Logger(),
