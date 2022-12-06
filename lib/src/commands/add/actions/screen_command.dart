@@ -36,8 +36,8 @@ class Screen extends Command<int> {
   String get name => "screen";
   @override
   Future<int> run() async {
-    if (!FlutterCli.isFlutterProject(Directory.current.path) &&
-        Cli.isProjectCreating(Directory.current.path)) {
+    if (!await FlutterCli.isFlutterProject(Directory.current.path) &&
+        await Cli.isProjectCreating(Directory.current.path)) {
       logger.err(
           "the project was not created using project_cli, create the project first");
       return ExitCode.cantCreate.code;

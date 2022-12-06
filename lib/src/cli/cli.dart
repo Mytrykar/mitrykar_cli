@@ -19,8 +19,8 @@ part 'intl_cli.dart';
 class Cli {
   static final Logger logger = Logger();
 
-  static bool isProjectCreating(String path) =>
-      ConfigDirectory(pathProject: path).configDir.existsSync();
+  static Future<bool> isProjectCreating(String path) =>
+      ConfigDirectory(pathProject: path).configDir.exists();
 
   //!T!= Створює файли послідовно, процес неможливо перервати.
   static Future<int> create(Map<FileSystemEntity, String> genFiles) async {

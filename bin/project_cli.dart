@@ -9,7 +9,7 @@ Future<void> main(List<String> args) async {
   // ]));
   await _flushThenExit(await CliRunner().run([
     "create",
-    "watch",
+    "app",
   ]));
   // await _flushThenExit(await CliRunner().run(args));
 }

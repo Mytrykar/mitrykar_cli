@@ -17,7 +17,7 @@ class FlutterCli {
           : throw PubspecNotFound;
   static String get projectName => yaml.name;
 
-  static bool isFlutterProject(String path) {
+  static Future<bool> isFlutterProject(String path) async {
     if (!File("$path/pubspec.yaml").existsSync()) return false;
     final yaml = File("$path/pubspec.yaml").readAsStringSync().toPubspecYaml();
     return yaml.customFields.containsKey("flutter");
@@ -38,24 +38,26 @@ class FlutterCli {
   static Future<void> create(Logger logger,
       {required ProjectType projectType,
       required String projectName,
-      path,
-      platforms}) async {
+      required String dir,
+      required String platforms}) async {
     assert(projectType == ProjectType.app);
     try {
       await Cli.run(
-          'flutter',
-          [
-            'create',
-            path,
-            "--project-name",
-            projectName,
-            "--platforms=$platforms"
-          ],
-          workingDirectory: path);
+        'flutter',
+        [
+          'create',
+          dir,
+          "--project-name",
+          projectName,
+          "--platforms",
+          "=$platforms"
+        ],
+      );
       logger.success(
           '''Architecture template successfully created MVVM + bloc''');
     } catch (e) {
       logger.err("An error occurred while creating Flutter App");
+      rethrow;
     }
   }
 
