@@ -48,9 +48,9 @@ class FlutterCli {
           'create',
           dir,
           "--project-name",
-          projectName,
-          "--platforms",
-          "=$platforms"
+          projectName.toLowerCase(),
+          "--platforms=$platforms",
+          "--no-pub"
         ],
       );
       logger.success(

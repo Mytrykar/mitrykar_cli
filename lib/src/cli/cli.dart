@@ -29,13 +29,12 @@ class Cli {
         if (element.key is File) {
           final file = element.key as File;
           final exist = await file.exists();
-          if (!exist) await file.create();
+          if (!exist) await file.create(recursive: true);
           await file.writeAsString(element.value);
         } else if (element.key is Directory) {
           final dir = element.key as Directory;
           final exist = await dir.exists();
-          if (!exist) await dir.create();
-          await dir.create();
+          if (!exist) await dir.create(recursive: true);
         }
       } catch (e) {
         logger.err("Error create ${element.key.path}");

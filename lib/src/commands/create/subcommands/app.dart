@@ -4,7 +4,6 @@ const List<String> allPlatfoms = [
   "android",
   "ios",
   "web",
-  "fuchsia",
   "linux",
   "macos",
   "windows"
@@ -32,12 +31,12 @@ class CreateApp extends Command<int> {
 
   @override
   Future<int> run() async {
-    // final projectName = _projectName;
-    final projectName = "projectName";
-    // final dir = _dir;
-    final dir = "dir";
-    // final platforms = _platforms;
-    final platforms = allPlatfoms;
+    final projectName = _projectName;
+    // final projectName = "projectName";
+    final dir = _dir;
+    // final dir = "dir";
+    final platforms = _platforms;
+    // final platforms = allPlatfoms;
     final path = join(Directory.current.path, dir);
     if (!await FlutterCli.isFlutterProject(path)) {
       logger.progress("Create Flutter App");
@@ -54,8 +53,11 @@ class CreateApp extends Command<int> {
         await File("$path/lib/main.dart").delete();
       }
       final template = MasonFlutterProject.templateApp(projectName, path);
+      // TODO змінити $projectName на ${projectName.toLoverCase}
+      // print(template.values.first);
       await Cli.create(template);
       final locale = _l10n;
+      // final locale = "en";
       await IntlCli(path, logger).init(locale);
       await pubAddDed(path, platforms);
       await pubAddDEVDed(path);
@@ -104,7 +106,8 @@ class CreateApp extends Command<int> {
       "bloc_test",
       "mocktail",
       "flutter_launcher_icons",
-      "injectable_generator"
+      "injectable_generator",
+      "go_router_builder"
     ];
     for (var package in listDep) {
       await FlutterCli.pubAddDEVDed(package, path);
@@ -116,46 +119,38 @@ class CreateApp extends Command<int> {
     await FlutterCli.pubAdd("equatable", path);
     await FlutterCli.pubAdd("shared_preferences", path);
     await FlutterCli.pubAdd("retrofit", path);
-    await FlutterCli.pubAdd("cached_network_image", path);
+    // await FlutterCli.pubAdd("cached_network_image", path);
     await FlutterCli.pubAdd("dio", path);
     await FlutterCli.pubAdd("built_value", path);
     await FlutterCli.pubAdd("json_annotation", path);
     await FlutterCli.pubAdd("bloc", path);
     await FlutterCli.pubAdd("go_router", path);
     await FlutterCli.pubAdd("path_provider", path);
-    await FlutterCli.pubAdd("stacked", path);
-    await FlutterCli.pubAdd("responsive_builder", path);
+    // await FlutterCli.pubAdd("responsive_builder", path);
     await FlutterCli.pubAdd("logger", path);
     await FlutterCli.pubAdd("get_it", path);
     await FlutterCli.pubAdd("injectable", path);
-    await FlutterCli.pubAdd("image_picker", path);
+    // await FlutterCli.pubAdd("image_picker", path);
 
-    if (platforms.contains("web") ||
-        platforms.contains("android") ||
-        platforms.contains("ios")) {
-      await FlutterCli.pubAdd("image_picker", path);
-      await FlutterCli.pubAdd("image_picker", path);
-    }
+    // if (platforms.contains("android") ||
+    //     platforms.contains("ios") ||
+    //     platforms.contains("linux") ||
+    //     platforms.contains("macos")) {
+    //   await FlutterCli.pubAdd("flutter_local_notifications", path);
+    //   if (!platforms.contains("linux")) {
+    //     await FlutterCli.pubAdd("cached_network_image", path);
+    //   }
+    // }
 
-    if (platforms.contains("android") ||
-        platforms.contains("ios") ||
-        platforms.contains("linux") ||
-        platforms.contains("macos")) {
-      await FlutterCli.pubAdd("flutter_local_notifications", path);
-      if (!platforms.contains("linux")) {
-        await FlutterCli.pubAdd("cached_network_image", path);
-      }
-    }
-
-    if (platforms.contains("android") || platforms.contains("ios")) {
-      await FlutterCli.pubAdd("permission_handler", path);
-      await FlutterCli.pubAdd("webview_flutter", path);
-    }
-    await FlutterCli.pubAdd("device_info_plus", path);
+    // if (platforms.contains("android") || platforms.contains("ios")) {
+    //   await FlutterCli.pubAdd("permission_handler", path);
+    //   await FlutterCli.pubAdd("webview_flutter", path);
+    // }
+    // await FlutterCli.pubAdd("device_info_plus", path);
     await FlutterCli.pubAdd("rxdart", path);
-    await FlutterCli.pubAdd("flutter_secure_storage", path);
-    await FlutterCli.pubAdd("badges", path);
-    await FlutterCli.pubAdd("flutter_spinkit", path);
-    await FlutterCli.pubAdd("auto_size_text", path);
+    // await FlutterCli.pubAdd("flutter_secure_storage", path);
+    // await FlutterCli.pubAdd("badges", path);
+    // await FlutterCli.pubAdd("flutter_spinkit", path);
+    // await FlutterCli.pubAdd("auto_size_text", path);
   }
 }

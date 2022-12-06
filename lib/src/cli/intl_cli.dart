@@ -61,12 +61,16 @@ flutter:
       "  # Adds code generation support",
       "  generate: true",
     ]);
-    file
-      ..deleteSync()
-      ..createSync()
-      ..writeAsString(pubspecYaml.fold(
-          "",
-          (previousValue, element) => """
+    print(pubspecYaml.fold(
+        "",
+        (previousValue, element) => """
+$previousValue
+$element"""));
+    await file.delete();
+    await file.create();
+    await file.writeAsString(pubspecYaml.fold(
+        "",
+        (previousValue, element) => """
 $previousValue
 $element"""));
   }
