@@ -7,11 +7,11 @@ Future<void> main(List<String> args) async {
   //   "git",
   //   "watch",
   // ]));
-  await _flushThenExit(await CliRunner().run([
-    "create",
-    "app",
-  ]));
-  // await _flushThenExit(await CliRunner().run(args));
+  // await _flushThenExit(await CliRunner().run([
+  //   "create",
+  //   "app",
+  // ]));
+  await _flushThenExit(await CliRunner().run(args));
 }
 
 Future<void> _flushThenExit(int status) {
