@@ -33,22 +33,21 @@ class CreateApp extends Command<int> {
   @override
   Future<int> run() async {
     // final projectName = _projectName;
-    final projectName = "_projectName";
+    final projectName = "projectName";
     // final dir = _dir;
-    final dir = "_dir";
+    final dir = "dir";
     // final platforms = _platforms;
     final platforms = allPlatfoms;
     final path = join(Directory.current.path, dir);
-    if (!FlutterCli.isFlutterProject(path)) {
+    if (!await FlutterCli.isFlutterProject(path)) {
       logger.progress("Create Flutter App");
       await FlutterCli.create(logger,
+          dir: dir,
           projectType: ProjectType.app,
           projectName: projectName,
-          path: path,
-          platforms: platforms.fold(
-              "", (previousValue, element) => "$previousValue,$element"));
+          platforms: platforms.join(","));
     }
-    if (!Cli.isProjectCreating(path)) {
+    if (!await Cli.isProjectCreating(path)) {
       // await Future.delayed(Duration(seconds: 5));
       logger.progress("!T! = Підготовка проекту");
       if (await Directory("$path/lib").list().length == 1) {
