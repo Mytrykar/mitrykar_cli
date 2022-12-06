@@ -41,7 +41,7 @@ class CliRunner extends CommandRunner<int> {
     addCommand(GitCommand(_logger));
     addCommand(CreateCommand(logger: _logger));
     // addCommand(UpdateCommand(logger: _logger, pubUpdater: _pubUpdater));
-    // addCommand(ProjectCommand()..addSubcommand(ProjectUpgradeSubcommand()));
+    // addCommand(ProjectCommand().addSubcommand(ProjectUpgradeSubcommand()));
   }
 
   final Logger _logger;

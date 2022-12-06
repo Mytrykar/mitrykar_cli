@@ -72,7 +72,6 @@ class FlutterCli {
   /// Install dart dependencies (`flutter pub get`).
   static Future<void> pubGet({
     String cwd = '.',
-    bool recursive = false,
   }) async {
     await Cli.run(
       'flutter',

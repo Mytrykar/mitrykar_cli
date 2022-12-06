@@ -20,5 +20,8 @@ dependencies:
   pubspec_parse: ^1.2.1
   pubspec_yaml: ^3.1.0
   rxdart: ^0.27.7
-
+  mason_app_project:
+    git:
+      url: https://github.com/Mytrykar/mason_app_project.git
+  
 

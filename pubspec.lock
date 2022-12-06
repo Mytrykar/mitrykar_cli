@@ -176,6 +176,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  mason_app_project:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "91da98351679bc2c6cfc6d96f2cef9be806a5126"
+      url: "https://github.com/Mytrykar/mason_app_project.git"
+    source: git
+    version: "1.0.0"
   mason_logger:
     dependency: "direct main"
     description:
