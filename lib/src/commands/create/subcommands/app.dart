@@ -32,9 +32,12 @@ class CreateApp extends Command<int> {
 
   @override
   Future<int> run() async {
-    final projectName = _projectName;
-    final dir = _dir;
-    final platforms = _platforms;
+    // final projectName = _projectName;
+    final projectName = "_projectName";
+    // final dir = _dir;
+    final dir = "_dir";
+    // final platforms = _platforms;
+    final platforms = allPlatfoms;
     final path = join(Directory.current.path, dir);
     if (!FlutterCli.isFlutterProject(path)) {
       logger.progress("Create Flutter App");
@@ -46,14 +49,13 @@ class CreateApp extends Command<int> {
               "", (previousValue, element) => "$previousValue,$element"));
     }
     if (!Cli.isProjectCreating(path)) {
+      // await Future.delayed(Duration(seconds: 5));
       logger.progress("!T! = Підготовка проекту");
-      if (Directory("$path/lib").listSync().length == 1) {
+      if (await Directory("$path/lib").list().length == 1) {
         await File("$path/lib/main.dart").delete();
       }
-      // TODO Підключити зчитування шаблону
-      final template = <FileSystemEntity, String>{};
+      final template = MasonFlutterProject.templateApp(projectName, path);
       await Cli.create(template);
-
       final locale = _l10n;
       await IntlCli(path, logger).init(locale);
       await pubAddDed(path, platforms);

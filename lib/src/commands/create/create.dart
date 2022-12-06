@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
+import 'package:mason_app_project/mason_app_project.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:project_cli/project_cli.dart';
 import 'package:project_cli/src/cli/cli.dart';
