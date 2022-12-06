@@ -107,6 +107,7 @@ class CreateApp extends Command<int> {
       "mocktail",
       "flutter_launcher_icons",
       "injectable_generator",
+      "build_verify",
       "go_router_builder"
     ];
     for (var package in listDep) {
@@ -130,6 +131,7 @@ class CreateApp extends Command<int> {
     await FlutterCli.pubAdd("logger", path);
     await FlutterCli.pubAdd("get_it", path);
     await FlutterCli.pubAdd("injectable", path);
+    await FlutterCli.pubAdd("json_annotation", path);
     // await FlutterCli.pubAdd("image_picker", path);
 
     // if (platforms.contains("android") ||
