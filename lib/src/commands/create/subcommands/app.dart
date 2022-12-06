@@ -105,6 +105,7 @@ class CreateApp extends Command<int> {
       "built_value_generator",
       "bloc_test",
       "mocktail",
+      "mock_web_server",
       "flutter_launcher_icons",
       "injectable_generator",
       "build_verify",
