@@ -7,14 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "50.0.0"
+    version: "51.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "5.3.1"
   args:
     dependency: transitive
     description:
@@ -181,7 +181,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: cf5bdc1ee16c4abe1965066dfde2878460044834
+      resolved-ref: "4536fc80ccc8376a46ad436d22e6dfecefe9da16"
       url: "https://github.com/Mytrykar/mason_app_project.git"
     source: git
     version: "1.0.0"
