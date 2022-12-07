@@ -26,10 +26,8 @@ class FlutterCli {
   static Future<void> pubAdd(String package, path) async {
     try {
       await Cli.run("flutter", ["pub", "add", package], workingDirectory: path);
-    } catch (e) {
     } finally {
-      Logger().info("""
-$package""");
+      Logger().info(package);
     }
   }
 
@@ -37,10 +35,8 @@ $package""");
     try {
       await Cli.run("flutter", ["pub", "add", package, "--dev"],
           workingDirectory: path);
-    } catch (e) {
     } finally {
-      Logger().info("""
-$package""");
+      Logger().info(package);
     }
   }
 

@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:args/command_runner.dart';
@@ -8,8 +7,6 @@ import 'package:change_case/change_case.dart';
 import 'package:mason_app_project/mason_app_project.dart';
 import 'package:mason_logger/mason_logger.dart';
 import 'package:project_cli/src/cli/cli.dart';
-import 'package:project_cli/src/cli/config/cli_dir.dart';
-import 'package:project_cli/src/commands/add/actions/screen_command.dart';
 
 void main(List<String> args) {
   BlocWidget(Logger()).run();
@@ -51,7 +48,7 @@ class BlocWidget extends Command<int> {
     }
     String parent = _parent(screens);
 
-    final screen = logger.progress("""Create ${widget}GetWinget in $parent""");
+    logger.progress("""Create ${widget}GetWinget in $parent""");
     try {
       // TODO add screen template
       final template = MasonFlutterProject.templateBlocWidget(

@@ -181,7 +181,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "4536fc80ccc8376a46ad436d22e6dfecefe9da16"
+      resolved-ref: "040135ae30696282c37e0c502d656a5cc6b7a949"
       url: "https://github.com/Mytrykar/mason_app_project.git"
     source: git
     version: "1.0.0"

@@ -24,12 +24,12 @@ class ProjectUpgradeSubcommand extends Command<int> {
   Future<int> run() async {
     // ignore: unused_local_variable
     final path = Directory.current.path;
-    final major = _major;
+    // final major = _major;
     // await Actions.upgradeProject(path, major);
     return ExitCode.success.code;
   }
 
-  bool get _major {
-    return argResults?['major'];
-  }
+  // bool get _major {
+  //   return argResults?['major'];
+  // }
 }

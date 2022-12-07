@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:project_cli/src/cli/config/template/config.dart';
