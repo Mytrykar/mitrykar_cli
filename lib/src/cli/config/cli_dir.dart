@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:project_cli/src/cli/config/template/config.dart';
@@ -63,6 +64,13 @@ class ConfigDirectory {
       ..writeAsStringSync(content);
   }
 
+  static Future<void> saveNewRoute(String path, String routeName) async {
+    final config = ConfigDirectory().tree["routers"]!;
+    final fromjson = Routers.fromJsonFile(config);
+    fromjson.routers["path"] = routeName;
+    final toJson = fromjson.toJsonFile();
+    File(config).writeAsStringSync(toJson);
+  }
   // static Future<bool> get isFlutterApp =>
   //     _CliYaml._checkProjectType(ProjectType.app);
 }
