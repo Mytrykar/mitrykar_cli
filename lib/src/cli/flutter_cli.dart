@@ -24,15 +24,24 @@ class FlutterCli {
   }
 
   static Future<void> pubAdd(String package, path) async {
-    await Cli.run("flutter", ["pub", "add", package], workingDirectory: path);
-    await Future.delayed(Duration(seconds: 1));
-    Logger().progress("Add $package");
+    try {
+      await Cli.run("flutter", ["pub", "add", package], workingDirectory: path);
+    } catch (e) {
+    } finally {
+      Logger().info("""
+$package""");
+    }
   }
 
   static Future<void> pubAddDEVDed(String package, path) async {
-    await Cli.run("flutter", ["pub", "add", package, "--dev"],
-        workingDirectory: path);
-    Logger().progress("Add dev $package");
+    try {
+      await Cli.run("flutter", ["pub", "add", package, "--dev"],
+          workingDirectory: path);
+    } catch (e) {
+    } finally {
+      Logger().info("""
+$package""");
+    }
   }
 
   static Future<void> create(Logger logger,
@@ -53,8 +62,9 @@ class FlutterCli {
           "--no-pub"
         ],
       );
-      logger.success(
-          '''Architecture template successfully created MVVM + bloc''');
+      logger.info("""
+Create flutter App
+""");
     } catch (e) {
       logger.err("An error occurred while creating Flutter App");
       rethrow;

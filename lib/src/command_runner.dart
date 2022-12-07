@@ -7,6 +7,7 @@ import 'package:project_cli/src/utils.dart';
 import 'package:project_cli/src/version.dart';
 import 'package:pub_updater/pub_updater.dart';
 
+import 'commands/add/add.dart';
 import 'commands/create/create.dart';
 import 'commands/git/git.dart';
 
@@ -40,6 +41,7 @@ class CliRunner extends CommandRunner<int> {
       );
     addCommand(GitCommand(_logger));
     addCommand(CreateCommand(logger: _logger));
+    addCommand(AddCommand(logger: _logger));
     // addCommand(UpdateCommand(logger: _logger, pubUpdater: _pubUpdater));
     // addCommand(ProjectCommand().addSubcommand(ProjectUpgradeSubcommand()));
   }

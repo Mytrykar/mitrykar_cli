@@ -17,9 +17,7 @@ class CreateApp extends Command<int> {
         'path',
         help: 'The directory path for the project.',
       )
-      ..addOption("l10n", help: "Create locallization in you project")
-      ..addMultiOption("platforms",
-          help: "Develop on platforms", defaultsTo: allPlatfoms.getRange(0, 3));
+      ..addMultiOption("platforms", help: "Develop on platforms");
   }
   @override
   String get description => "Створіть Flutter app з архітектурою Stacked+Bloc";
@@ -38,8 +36,8 @@ class CreateApp extends Command<int> {
     final platforms = _platforms;
     // final platforms = allPlatfoms;
     final path = join(Directory.current.path, dir);
+    logger.progress("!T! = Підготовка проекту");
     if (!await FlutterCli.isFlutterProject(path)) {
-      logger.progress("Create Flutter App");
       await FlutterCli.create(logger,
           dir: dir,
           projectType: ProjectType.app,
@@ -48,7 +46,6 @@ class CreateApp extends Command<int> {
     }
     if (!await Cli.isProjectCreating(path)) {
       // await Future.delayed(Duration(seconds: 5));
-      logger.progress("!T! = Підготовка проекту");
       if (await Directory("$path/lib").list().length == 1) {
         await File("$path/lib/main.dart").delete();
       }
@@ -56,11 +53,24 @@ class CreateApp extends Command<int> {
       // TODO змінити $projectName на ${projectName.toLoverCase}
       // print(template.values.first);
       await Cli.create(template);
+      logger.info("""
+Create basic folder structure
+""");
       final locale = _l10n;
       // final locale = "en";
+      logger.info(""""
+Generated  intl""");
       await IntlCli(path, logger).init(locale);
+      logger.info("""
+add basic dependensies""");
       await pubAddDed(path, platforms);
+
+      logger.info("""
+add basic dev dependensies""");
       await pubAddDEVDed(path);
+
+      logger.info("flutter pub get");
+      await FlutterCli.pubGet(cwd: path);
       logger.success("Add done.");
     }
 
@@ -68,22 +78,19 @@ class CreateApp extends Command<int> {
   }
 
   List<String> get _platforms {
-    return argResults?["platforms"] ??
-        logger.chooseAny("""Enter the platforms you want to support. 
-            Think carefully, because specific platform settings will be added to the project.""",
-            choices: allPlatfoms,
-            defaultValues: allPlatfoms.getRange(0, 3).toList());
+    return logger.chooseAny("Enter the platforms",
+        choices: allPlatfoms,
+        defaultValues: allPlatfoms.getRange(0, 3).toList());
   }
 
   String get _l10n {
-    return argResults?['l10n'] ??
-        logger.prompt("Enter basic locale:", defaultValue: "en");
+    return logger.prompt("Enter basic locale:", defaultValue: "en");
   }
 
   String get _dir {
     return argResults?['path'] ??
         logger.prompt(
-          'The name of the folder where your project will be located does not affect the value in the project',
+          'Folder',
           defaultValue: 'app',
         );
   }
@@ -126,13 +133,14 @@ class CreateApp extends Command<int> {
     await FlutterCli.pubAdd("built_value", path);
     await FlutterCli.pubAdd("json_annotation", path);
     await FlutterCli.pubAdd("bloc", path);
+    await FlutterCli.pubAdd("get", path);
     await FlutterCli.pubAdd("go_router", path);
     await FlutterCli.pubAdd("path_provider", path);
     // await FlutterCli.pubAdd("responsive_builder", path);
     await FlutterCli.pubAdd("logger", path);
     await FlutterCli.pubAdd("get_it", path);
     await FlutterCli.pubAdd("injectable", path);
-    await FlutterCli.pubAdd("json_annotation", path);
+
     // await FlutterCli.pubAdd("image_picker", path);
 
     // if (platforms.contains("android") ||

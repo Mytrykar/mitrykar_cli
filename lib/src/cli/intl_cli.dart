@@ -11,7 +11,6 @@ class IntlCli extends _CliHelper {
       await Cli.run("flutter", ["pub", "add", "intl"], workingDirectory: path);
       //flutter gen-l10n en
       await Cli.run("flutter", ["gen-l10n", locale], workingDirectory: path);
-      await FlutterCli.pubGet();
     }
   }
 }
@@ -61,11 +60,11 @@ flutter:
       "  # Adds code generation support",
       "  generate: true",
     ]);
-    print(pubspecYaml.fold(
-        "",
-        (previousValue, element) => """
-$previousValue
-$element"""));
+//     print(pubspecYaml.fold(
+//         "",
+//         (previousValue, element) => """
+// $previousValue
+// $element"""));
     await file.delete();
     await file.create();
     await file.writeAsString(pubspecYaml.fold(
@@ -78,7 +77,12 @@ $element"""));
   ///Create the l10n.yaml file
   Future<void> _createl10n() async {
     try {
-      final file = await File("$path/l10n.yaml").create();
+      final arb =
+          await File("$path/lib/l10n/app_en.arb").create(recursive: true);
+      arb.writeAsString("""{
+        "@@locale" : "en"
+}""");
+      final file = await File("$path/l10n.yaml").create(recursive: true);
       /*
       # !!<<This file generated, please try not to change anything here>>!!
       # See also: https://docs.google.com/document/d/10e0saTfAv32OZLRmONy866vnaw0I2jwL8zukykpgWBc/edit#
@@ -120,7 +124,7 @@ output-localization-file: app_localizations.dart
 # if you want to add more parameters then here is a list with explanations.
 # https://docs.google.com/document/d/10e0saTfAv32OZLRmONy866vnaw0I2jwL8zukykpgWBc/edit#heading=h.upij01jgi58m
 """);
-      logger.progress("Create $path/l10n.yaml");
+      // logger.success("Create $path/l10n.yaml");
     } catch (e) {
       rethrow;
     }

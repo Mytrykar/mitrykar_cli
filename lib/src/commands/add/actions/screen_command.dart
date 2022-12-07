@@ -65,13 +65,14 @@ class Screen extends Command<int> {
 
     try {
       // TODO add screen template
-      // final template = MasonFlutterProject.templateScreen(
-      //     FlutterCli.projectName,
-      //     Directory.current.path,
-      //     screenName,
-      //     pathRoute,
-      //     routeName!);
-      // await ConfigDirectory.saveNewRoute(template.route, routeName);
+      final template = MasonFlutterProject.templateScreen(
+          FlutterCli.projectName,
+          Directory.current.path,
+          screenName,
+          pathRoute,
+          routeName);
+      await Cli.create(template.template);
+      await ConfigDirectory.saveNewRoute(template.route, routeName);
     } catch (e) {
       rethrow;
     }

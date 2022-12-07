@@ -98,7 +98,7 @@ packages:
       name: frontend_server_client
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.2.0"
   functional_data:
     dependency: transitive
     description:
@@ -181,7 +181,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "91da98351679bc2c6cfc6d96f2cef9be806a5126"
+      resolved-ref: cf5bdc1ee16c4abe1965066dfde2878460044834
       url: "https://github.com/Mytrykar/mason_app_project.git"
     source: git
     version: "1.0.0"
@@ -212,7 +212,7 @@ packages:
       name: mime
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   node_preamble:
     dependency: transitive
     description:
@@ -233,7 +233,7 @@ packages:
       name: path
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.2"
+    version: "1.8.3"
   plain_optional:
     dependency: transitive
     description:
